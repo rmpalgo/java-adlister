@@ -8,12 +8,20 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "CountPageServlet", urlPatterns = "/count")
 public class CountPageServlet extends HttpServlet {
-    static int counter = 0;
+    static int counter = 1;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        String reset = request.getParameter("reset");
         String count = String.valueOf(counter);
-        counter++;
-        out.println("<h1>Counter: " + count + "</h1>");
+        if(reset == null) {
+            counter++;
+            out.println("<h1>Counter: " + count + "</h1>");
+            out.println("Reset counter by get request <reset> = restart");
+        } else if(reset.equals("restart")) {
+            counter = 0;
+            out.println("<h1>Counter: " + count + "</h1>");
+            out.println("Reset counter by get request <reset> = restart");
+        }
     }
 }
