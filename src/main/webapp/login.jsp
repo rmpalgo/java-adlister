@@ -6,6 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    if(request.getMethod().equalsIgnoreCase("post")) {
+        if(request.getParameter("username").equalsIgnoreCase("admin") && request.getParameter("password").equalsIgnoreCase("password")) {
+            String redirectURL = "/profile.jsp";
+            response.sendRedirect(redirectURL);
+        }
+    }
+%>
 <html>
 <head>
     <title>Login Page</title>
