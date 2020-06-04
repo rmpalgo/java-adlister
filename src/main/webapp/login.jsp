@@ -15,13 +15,12 @@
     }
 %>
 <html>
-<head>
-    <title>Login Page</title>
-</head>
+<%@include file="partials/header.jsp"%>
 <body>
+<%@include file="partials/navbar.jsp"%>
+<br>
 <!-- This is an HTML comment, will render on page source, form structure-->
 <form method="POST" action="/login.jsp">
-
     <label for="username">Username</label>
     <input id="username" name="username" type="text">
     <br>
@@ -31,10 +30,8 @@
     <br>
 
     <input type="submit">
-
-
-
 </form>
-
+<br>
+<%@include file="partials/footer.jsp"%>
 </body>
 </html>

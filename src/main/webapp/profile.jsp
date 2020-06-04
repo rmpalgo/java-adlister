@@ -11,6 +11,10 @@
     <title>Profile Page</title>
 </head>
 <body>
+<%@include file="partials/navbar.jsp"%>
+<br>
 <h1>This is the profile page</h1>
+<%@include file="partials/footer.jsp"%>
+<br>
 </body>
 </html>
