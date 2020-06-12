@@ -28,17 +28,16 @@ public class RegisterServlet extends HttpServlet {
                 || email.isEmpty()
                 || password.isEmpty()
                 || (!password.equals(passwordConfirm));
-
+        System.out.println(inputHasErrors);
         if(inputHasErrors) {
             response.sendRedirect("/register");
             return;
         }
 
-        //create a new user based off of the submitted information
+        //create and save a new user
         User user = new User(username, email, password);
         DaoFactory.getUserDao().insert(user);
         response.sendRedirect("/login");
 
-        // TODO: if a user was successfully created, send them to their profile
     }
 }

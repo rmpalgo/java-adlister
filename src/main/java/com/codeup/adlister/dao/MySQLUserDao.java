@@ -26,11 +26,11 @@ public class MySQLUserDao implements Users {
 
     @Override
     public User findByUsername(String username) {
-       String query = "SELECT * FROM users WHERE name LIKE ?";
+       String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
        try {
            PreparedStatement stmt = connection.prepareStatement(query);
-           ResultSet rs = stmt.executeQuery();
-           return extractUser(rs);
+           stmt.setString(1, username);
+           return extractUser(stmt.executeQuery());
        } catch (SQLException e) {
            throw new RuntimeException("Error retrieving user", e);
        }
@@ -59,7 +59,7 @@ public class MySQLUserDao implements Users {
         }
         return new User(
                 rs.getLong("id"),
-                rs.getString("name"),
+                rs.getString("username"),
                 rs.getString("email"),
                 rs.getString("password")
         );
