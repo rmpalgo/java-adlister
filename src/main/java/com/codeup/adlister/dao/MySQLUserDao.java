@@ -1,0 +1,56 @@
+package com.codeup.adlister.dao;
+
+import com.codeup.adlister.models.User;
+import dao.Config;
+import com.mysql.cj.jdbc.Driver;
+
+import javax.xml.transform.Result;
+import java.sql.*;
+import java.util.List;
+
+public class MySQLUserDao implements Users {
+    private Connection connection = null;
+
+    public MySQLUserDao (Config config) {
+        try {
+            DriverManager.registerDriver(new Driver());
+            connection = DriverManager.getConnection(
+                    config.getUrl(),
+                    config.getUsername(),
+                    config.getPassword()
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException("Error connecting to the database!", e);
+        }
+    }
+
+    @Override
+    public User findByUsername(String username) {
+       String query = "SELECT * FROM users WHERE name LIKE ?";
+       try {
+           PreparedStatement stmt = connection.prepareStatement(query);
+           ResultSet rs = stmt.executeQuery();
+           return extractUser(rs);
+       } catch (SQLException e) {
+           throw new RuntimeException("Error retrieving user", e);
+       }
+    }
+
+    @Override
+    public Long insert(User user) {
+        return null;
+    }
+
+    private User extractUser(ResultSet rs) throws SQLException{
+        if( ! rs.next() ) {
+            return null;
+        }
+        return new User(
+                rs.getLong("id"),
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("password")
+        );
+    }
+
+}
