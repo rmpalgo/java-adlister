@@ -1,8 +1,9 @@
+package dao;
+
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import models.Ad;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,6 @@ public class MySQLAdsDao implements Ads {
         } catch(SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return null;
     }
 
